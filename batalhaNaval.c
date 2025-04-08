@@ -1,14 +1,44 @@
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+#define TAMANHO_TABULEIRO 10
+#define TAMANHO_NAVIO 3
 
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+    // Coordenadas iniciais para os navios (valores definidos manualmente)
+    int x_horizontal = 2, y_horizontal = 4; // Começa em (2,4)
+    int x_vertical = 6, y_vertical = 1;     // Começa em (6,1)
+
+    // Vetores para armazenar as coordenadas dos navios
+    int navio_horizontal[TAMANHO_NAVIO][2];
+    int navio_vertical[TAMANHO_NAVIO][2];
+
+    // Posiciona navio horizontalmente (mesma linha, colunas diferentes)
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        navio_horizontal[i][0] = x_horizontal;
+        navio_horizontal[i][1] = y_horizontal + i;
+    }
+
+    // Posiciona navio verticalmente (mesma coluna, linhas diferentes)
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        navio_vertical[i][0] = x_vertical + i;
+        navio_vertical[i][1] = y_vertical;
+    }
+
+    // Exibe coordenadas dos navios
+    printf("=== Coordenadas dos Navios no Tabuleiro ===\n\n");
+
+    printf("Navio Horizontal (posição inicial: (%d, %d)):\n", x_horizontal, y_horizontal);
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        printf("Parte %d: (%d, %d)\n", i + 1, navio_horizontal[i][0], navio_horizontal[i][1]);
+    }
+
+    printf("\nNavio Vertical (posição inicial: (%d, %d)):\n", x_vertical, y_vertical);
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        printf("Parte %d: (%d, %d)\n", i + 1, navio_vertical[i][0], navio_vertical[i][1]);
+    }
+
+    return 0;
+}
 
     // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
     // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
