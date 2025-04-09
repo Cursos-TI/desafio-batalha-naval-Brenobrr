@@ -85,7 +85,7 @@ def posicionar_todos_navios(tabuleiro):
         if not sucesso:
             print(f"Falha ao posicionar navio de tamanho {tamanho} na direção {direcao}")
 
-# Execução
+   # Execução
 tabuleiro = criar_tabuleiro()
 posicionar_todos_navios(tabuleiro)
 print("🧭 Tabuleiro Aventureiro (10x10):")
