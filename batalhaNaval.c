@@ -37,34 +37,124 @@ int main() {
         printf("Parte %d: (%d, %d)\n", i + 1, navio_vertical[i][0], navio_vertical[i][1]);
     }
 
-    return 0;
-}
+    import random
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+def criar_tabuleiro(tamanho=10):
+    return [[0 for _ in range(tamanho)] for _ in range(tamanho)]
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+def exibir_tabuleiro(tabuleiro):
+    for linha in tabuleiro:
+        print(' '.join(str(celula) for celula in linha))
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
+def posicionar_navio(tabuleiro, tamanho, direcao, diagonal=False):
+    max_linha = len(tabuleiro)
+    max_coluna = len(tabuleiro[0])
+
+    tentativas = 0
+    while tentativas < 100:
+        linha = random.randint(0, max_linha - 1)
+        coluna = random.randint(0, max_coluna - 1)
+        coords = []
+
+        for i in range(tamanho):
+            r = linha + i if direcao in ['v', 'd1'] else linha - i if direcao == 'd2' else linha
+            c = coluna + i if direcao in ['h', 'd1'] else coluna - i if direcao == 'd2' else coluna
+
+            if 0 <= r < max_linha and 0 <= c < max_coluna and tabuleiro[r][c] == 0:
+                coords.append((r, c))
+            else:
+                break
+
+        if len(coords) == tamanho:
+            for r, c in coords:
+                tabuleiro[r][c] = 3
+            return True
+
+        tentativas += 1
+    return False
+
+def posicionar_todos_navios(tabuleiro):
+    navios = [
+        (4, 'h'),   # horizontal
+        (3, 'v'),   # vertical
+        (3, 'd1'),  # diagonal principal
+        (2, 'd2')   # diagonal secundária
+    ]
+    for tamanho, direcao in navios:
+        sucesso = posicionar_navio(tabuleiro, tamanho, direcao, diagonal=(direcao.startswith('d')))
+        if not sucesso:
+            print(f"Falha ao posicionar navio de tamanho {tamanho} na direção {direcao}")
+
+# Execução
+tabuleiro = criar_tabuleiro()
+posicionar_todos_navios(tabuleiro)
+print("🧭 Tabuleiro Aventureiro (10x10):")
+exibir_tabuleiro(tabuleiro)
+
+    }
+
+    def criar_matriz_vazia(tamanho):
+    return [[0 for _ in range(tamanho)] for _ in range(tamanho)]
+
+def exibir_matriz(matriz):
+    for linha in matriz:
+        print(" ".join(str(valor) for valor in linha))
+
+def habilidade_cone(tamanho):
+    matriz = criar_matriz_vazia(tamanho)
+    meio = tamanho // 2
+    for i in range(meio + 1):
+        for j in range(meio - i, meio + i + 1):
+            matriz[i][j] = 1
+    return matriz
+
+def habilidade_cruz(tamanho):
+    matriz = criar_matriz_vazia(tamanho)
+    meio = tamanho // 2
+    for i in range(tamanho):
+        matriz[i][meio] = 1
+        matriz[meio][i] = 1
+    return matriz
+
+def habilidade_octaedro(tamanho):
+    matriz = criar_matriz_vazia(tamanho)
+    meio = tamanho // 2
+    for i in range(tamanho):
+        for j in range(tamanho):
+            if abs(i - meio) + abs(j - meio) <= meio:
+                matriz[i][j] = 1
+    return matriz
+
+# 🧪 Testando as habilidades com matriz 5x5
+tamanho = 5
+
+print("🧿 Habilidade: CONE")
+exibir_matriz(habilidade_cone(tamanho))
+print("\n➕ Habilidade: CRUZ")
+exibir_matriz(habilidade_cruz(tamanho))
+print("\n🔷 Habilidade: OCTAEDRO")
+exibir_matriz(habilidade_octaedro(tamanho))
+
+    // habilidadee em cone 
+    0 0 1 0 0
+    0 1 1 1 0
+    1 1 1 1 1
+    0 0 0 0 0
+    0 0 0 0 0
+
+    // habilidade em octaedro
+    0 0 1 0 0
+    0 1 1 1 0
+    1 1 1 1 1
+    0 1 1 1 0
+    0 0 1 0 0
+
+    // habilidade em cruz
+    0 0 1 0 0
+    0 0 1 0 0
+    1 1 1 1 1
+    0 0 1 0 0
+    0 0 1 0 0
     
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
-
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
-
     return 0;
 }
